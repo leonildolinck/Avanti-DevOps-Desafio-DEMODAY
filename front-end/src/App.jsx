@@ -125,7 +125,7 @@ function App() {
                 <div className="font-bold">IQFOME</div>
                 <div>Avenida Brasil, 01</div>
                 <div>(99) 2222-3333</div>
-                <div>CNPJ: 99.999.999/0001-99 I.E.: 123.321</div>
+                <div>CNPJ: 99.999.999/0001-99 I.E.: 123.321.8</div>
               </div>
               <div className="text-center my-2">
                 IMPRESSO EM 23/07/2025 xx:xx
