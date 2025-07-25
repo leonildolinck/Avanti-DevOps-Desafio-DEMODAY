@@ -20,10 +20,10 @@ function App() {
     setErro("");
     try {
       const endpoints = [
-        "https://api-cardapio-aleatorio-leonildolinck-86ef6af0.koyeb.app/entradas/aleatorio",
-        "https://api-cardapio-aleatorio-leonildolinck-86ef6af0.koyeb.app/pratos/aleatorio",
-        "https://api-cardapio-aleatorio-leonildolinck-86ef6af0.koyeb.app/bebidas/aleatorio",
-        "https://api-cardapio-aleatorio-leonildolinck-86ef6af0.koyeb.app/sobremesas/aleatorio",
+        "https://api-cardapio-aleatorio-leonildolinck-2c8494ec.koyeb.app/entradas/aleatorio",
+        "https://api-cardapio-aleatorio-leonildolinck-2c8494ec.koyeb.app/pratos/aleatorio",
+        "https://api-cardapio-aleatorio-leonildolinck-2c8494ec.koyeb.app/bebidas/aleatorio",
+        "https://api-cardapio-aleatorio-leonildolinck-2c8494ec.koyeb.app/sobremesas/aleatorio",
       ];
 
       const responses = await Promise.all(endpoints.map((url) => fetch(url)));
