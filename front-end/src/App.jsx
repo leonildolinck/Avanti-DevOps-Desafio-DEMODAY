@@ -22,8 +22,8 @@ function App() {
       const endpoints = [
         "https://api-cardapio-aleatorio-leonildolinck-86ef6af0.koyeb.app/entradas/aleatorio",
         "https://api-cardapio-aleatorio-leonildolinck-86ef6af0.koyeb.app/pratos/aleatorio",
-        "https://api-cardapio-aleatorio-leonildolinck-86ef6af0.koyeb.app/aleatorio",
-        "https://api-cardapio-aleatorio-leonildolinck-86ef6af0.koyeb.app/aleatorio",
+        "https://api-cardapio-aleatorio-leonildolinck-86ef6af0.koyeb.app/bebidas/aleatorio",
+        "https://api-cardapio-aleatorio-leonildolinck-86ef6af0.koyeb.app/sobremesas/aleatorio",
       ];
 
       const responses = await Promise.all(endpoints.map((url) => fetch(url)));
@@ -125,7 +125,7 @@ function App() {
                 <div className="font-bold">IQFOME</div>
                 <div>Avenida Brasil, 01</div>
                 <div>(99) 2222-3333</div>
-                <div>CNPJ: 99.999.999/0001-99 I.E.: 123.321.8</div>
+                <div>CNPJ: 99.999.999/0001-99 I.E.: 123.321</div>
               </div>
               <div className="text-center my-2">
                 IMPRESSO EM 23/07/2025 xx:xx
