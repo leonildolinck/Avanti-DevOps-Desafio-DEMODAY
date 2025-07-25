@@ -1,7 +1,6 @@
 
 from sqlalchemy.orm import Session
 import random
-from . import models
 
 def get_item_by_id(db: Session, model, item_id: int):
     return db.query(model).filter(model.id == item_id).first()
