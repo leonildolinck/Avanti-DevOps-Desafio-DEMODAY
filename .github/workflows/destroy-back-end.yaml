@@ -5,7 +5,7 @@ on:
 
 jobs:
   destroy:
-    name: Destroy Staging Infra
+    name: Destroy Staging back-end/infra
     runs-on: ubuntu-latest
     env:
       KOYEB_TOKEN: ${{ secrets.KOYEB_TOKEN }}
@@ -20,12 +20,12 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TFC_TOKEN }}
 
       - name: Terraform Init
-        run: terraform -chdir=infra init
+        run: terraform -chdir=back-end/infra init
         env:
           TFC_TOKEN: ${{ secrets.TFC_TOKEN }}
 
       - name: Terraform Destroy
-        run: terraform -chdir=infra destroy -auto-approve
+        run: terraform -chdir=back-end/infra destroy -auto-approve
         env:
           KOYEB_TOKEN: ${{ secrets.KOYEB_TOKEN }}
           TF_VAR_docker_image_name: ${{ env.DOCKER_IMAGE_NAME }}
