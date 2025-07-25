@@ -11,6 +11,8 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - "back-end/**"
 
 env:
   DOCKER_USER: ${{ vars.DOCKER_USER }}
