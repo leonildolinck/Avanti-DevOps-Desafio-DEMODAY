@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
+      fontFamily: {
+        'bitcount': ['Bitcount Prop Single'],     
+    },
+  },
   },
   plugins: [],
 }

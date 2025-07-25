@@ -1,11 +1,11 @@
 variable "app_name" {
   type    = string
-  default = "saudacoes-aleatorias"
+  default = "api-cardapio-aleatorio"
 }
 
 variable "service_name" {
   type    = string
-  default = "saudacoes-aleatorias"
+  default = "api-cardapio-aleatorio"
 }
 
 variable "instance_type" {
@@ -20,7 +20,7 @@ variable "container_port" {
 
 variable "docker_image_name" {
   type    = string
-  default = "leonildolinck/api-saudacoes-aleatorias"
+  default = "leonildolinck/api-cardapio"
 }
 
 variable "docker_image_tag" {
