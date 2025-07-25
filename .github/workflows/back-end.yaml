@@ -11,6 +11,8 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - "back-end/**"
 
 env:
   DOCKER_USER: ${{ vars.DOCKER_USER }}
@@ -60,7 +62,7 @@ jobs:
           pip install pytest httpx
 
       - name: Run tests with Pytest
-        run: pytest --cov=app --cov-report=xml --cov-report=html
+        run: pytest
 
   build-and-push:
     name: Build and Push Docker Image
