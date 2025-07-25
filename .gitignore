@@ -1,5 +1,6 @@
 /back-end/seed.py
-
+.secrets
+/back-end/cardapio.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -7,6 +8,7 @@ __pycache__/
 
 # C extensions
 *.so
+
 
 # Distribution / packaging
 .Python

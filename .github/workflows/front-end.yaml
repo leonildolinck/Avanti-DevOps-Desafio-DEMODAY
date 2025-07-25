@@ -1,0 +1,88 @@
+name: CI/CD Pipeline (Front-end)
+
+on:
+  push:
+    branches:
+      - main
+      - "*"
+    paths:
+      - 'front-end/**'
+
+  pull_request:
+    branches:
+      - main
+        
+env:
+  AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: 'us-east-1'
+  SOURCE_DIR: './front-end/dist'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        working-directory: ./front-end
+        run: npm ci
+
+      - name: Lint (ESLint)
+        working-directory: ./front-end
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        working-directory: ./front-end
+        run: npm ci
+
+      - name: Run tests with Vitest (without watch)
+        working-directory: ./front-end
+        run: npm run test -- --watch=false
+
+      - name: Run tests with coverage
+        working-directory: ./front-end
+        run: npm run test:coverage
+        
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./front-end
+
+      - name: Build project
+        run: npm run build
+        working-directory: ./front-end
+
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --delete

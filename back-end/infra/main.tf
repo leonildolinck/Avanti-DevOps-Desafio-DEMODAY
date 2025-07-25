@@ -3,7 +3,7 @@ terraform {
     organization = "leonildo-devops"
 
     workspaces {
-      name = "saudacoes-terraform"
+      name = "avanti-demoday"
     }
   }
 
@@ -44,7 +44,7 @@ resource "koyeb_service" "my-service" {
     health_checks {
       http {
         port = var.container_port
-        path = "/api/saudacoes/aleatorio"
+        path = "/pratos/aleatorio"
       }
     }
     regions = ["was"]
