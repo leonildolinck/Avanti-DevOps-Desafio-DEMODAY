@@ -12,10 +12,12 @@ on:
       - main
     paths:
       - 'front-end/**'
-
+      
 env:
-  IMAGE_NAME: "leonildolinck/nginx-frontend"
-  IMAGE_TAG: "latest"
+  DOCKER_USER: ${{ vars.DOCKER_USER }}
+  DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+  DOCKER_IMAGE_NAME: ${{ vars.DOCKER_USER }}/nginx-frontend
+  DOCKER_IMAGE_TAG: 1.0.${{ github.run_id }}
 
 jobs:
   lint:
@@ -79,7 +81,7 @@ jobs:
     if: github.event_name == 'push' && github.ref_name == 'main'
     env:
       TFC_TOKEN: ${{ secrets.TFC_TOKEN }}
-      GOOGLE_CREDENTIALS: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+      GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -93,19 +95,19 @@ jobs:
         id: init
         run: terraform -chdir=front-end/infra init
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           TFC_TOKEN: ${{ secrets.TFC_TOKEN }}
 
       - name: Terraform Validate
         id: validate
         run: terraform -chdir=front-end/infra validate
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       - name: Terraform Apply
         id: apply
         run: terraform -chdir=front-end/infra apply -auto-approve
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           TF_VAR_docker_image_name: ${{ env.DOCKER_IMAGE_NAME }}
           TF_VAR_docker_image_tag: ${{ env.DOCKER_IMAGE_TAG }}
