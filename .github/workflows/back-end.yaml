@@ -109,17 +109,17 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform -chdir=infra init
+        run: terraform -chdir=back-end/infra init
         env:
           TFC_TOKEN: ${{ secrets.TFC_TOKEN }}
 
       - name: Terraform Validate
         id: validate
-        run: terraform -chdir=infra validate
+        run: terraform -chdir=back-end/infra validate
 
       - name: Terraform Apply
         id: apply
-        run: terraform -chdir=infra apply -auto-approve
+        run: terraform -chdir=back-end/infra apply -auto-approve
         env:
           KOYEB_TOKEN: ${{ secrets.KOYEB_TOKEN }}
           TF_VAR_docker_image_name: ${{ env.DOCKER_IMAGE_NAME }}
