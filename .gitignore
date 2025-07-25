@@ -1,6 +1,7 @@
 /back-end/seed.py
 .secrets
 /back-end/cardapio.json
+front-end/infra/.gcp
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
