@@ -2,6 +2,13 @@
 
 ![Banner](./images/banner.png)
 
+<p align="center">
+	<img src="https://img.shields.io/github/license/leonildolinck/Avanti-DevOps-Desafio-DEMODAY?style=default&logo=opensourceinitiative&logoColor=white&color=14083c" alt="license">
+	<img src="https://img.shields.io/github/last-commit/leonildolinck/Avanti-DevOps-Desafio-DEMODAY?style=default&logo=git&logoColor=white&color=14083c" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/leonildolinck/Avanti-DevOps-Desafio-DEMODAY?style=default&color=14083c" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/leonildolinck/Avanti-DevOps-Desafio-DEMODAY?style=default&color=14083c" alt="repo-language-count">
+</p>
+
 Este repositório contém a aplicação api-refeicoes-aleatorias, desenvolvida em Python, com FastAPI elaborada por nós junto com uma pipeline de CI/CD automatizada usando o GitHub Actions. O objetivo é garantir entregas consistentes, testadas e com provisionamento de infraestrutura automática usando Terraform na plataforma Koyeb.
 
 ## Tecnologias Utilizadas
@@ -35,6 +42,8 @@ Este repositório contém a aplicação api-refeicoes-aleatorias, desenvolvida e
 
 ## Arquitetura do Projeto
 
+### Front-End
+
 ```
 [ Desenv. Local / GitHub ]
            │
@@ -42,9 +51,36 @@ Este repositório contém a aplicação api-refeicoes-aleatorias, desenvolvida e
 ╔════════════════════════════════════════════════════════╗
 ║                    GitHub Actions CI/CD                ║
 ║--------------------------------------------------------║
-║   1. Lint       → xxxxxxxxxxxxxx       ║
-║   2. Test       → xxxxxxxxxxxxxxxx             ║
-║   3. Build      → Docker Buildx (multi-plataforma?)     ║
+║   1. Lint       → Node.js-ESLint                       ║
+║   2. Test       → Node-js.Jest                         ║
+║   3. Build      → Docker Buildx (multi-plataforma?)    ║
+║   4. Push       → Docker Hub                           ║
+║   5. Deploy     → Terraform Apply na Google Cloud      ║
+║   6. Cleanup    → Terraform Destroy (manual)           ║
+╚════════════════════════════════════════════════════════╝
+           │
+           ▼
+╔══════════════════════╗      ╔══════════════════════════╗
+║    Docker Hub        ║─────▶║  Run Cloud(Google Cloud) ║
+║  leonildolinck/...   ║      ║   Container App Running  ║
+╚══════════════════════╝      ╚══════════════════════════╝
+                                      │
+                                      ▼
+                           https://<app>.a.run.app
+
+```
+### Back-End
+
+```
+[ Desenv. Local / GitHub ]
+           │
+           ▼
+╔════════════════════════════════════════════════════════╗
+║                    GitHub Actions CI/CD                ║
+║--------------------------------------------------------║
+║   1. Lint       → Ruff                                 ║
+║   2. Test       → Pytest                               ║
+║   3. Build      → Docker Buildx (x64)                  ║
 ║   4. Push       → Docker Hub                           ║
 ║   5. Deploy     → Terraform Apply na Koyeb             ║
 ║   6. Cleanup    → Terraform Destroy (manual)           ║
@@ -52,7 +88,7 @@ Este repositório contém a aplicação api-refeicoes-aleatorias, desenvolvida e
            │
            ▼
 ╔══════════════════════╗      ╔══════════════════════════╗
-║    Docker Hub        ║─────▶║     Koyeb (Infra Cloud)  ║
+║    Docker Hub        ║─────▶║   Koyeb (Infra Cloud)    ║
 ║  leonildolinck/...   ║      ║  Container App Running   ║
 ╚══════════════════════╝      ╚══════════════════════════╝
                                       │
@@ -62,22 +98,67 @@ Este repositório contém a aplicação api-refeicoes-aleatorias, desenvolvida e
 ```
 
 ## Estrutura do Projeto
-```
-.
-├── Dockerfile                # Build da imagem da aplicação
-├── main.go                   # Código-fonte principal
-├── infra/                    # Arquivos Terraform para Koyeb
-│   ├── main.tf
-│   ├── variables.tf
-│   └── ...
-├── .github/
-│   └── workflows/
-│       └── main.yml          # Pipeline CI/CD
-└── README.md                 # Este arquivo
+
+```sh
+└── Avanti-DevOps-Desafio-DEMODAY/
+    ├── .github
+    │   └── workflows
+    │       ├── back-end.yaml
+    │       ├── destroy-back-end.yaml
+    │       ├── destroy-front-end.yaml
+    │       └── front-end.yaml
+    ├── LICENSE
+    ├── README.md
+    ├── back-end
+    │   ├── CICD.trigger
+    │   ├── Dockerfile
+    │   ├── app
+    │   │   ├── __init__.py
+    │   │   ├── crud.py
+    │   │   ├── database.py
+    │   │   ├── main.py
+    │   │   ├── models.py
+    │   │   └── test_main.py
+    │   ├── cardapio.db
+    │   ├── infra
+    │   │   ├── main.tf
+    │   │   └── variables.tf
+    │   └── requirements.txt
+    ├── front-end
+    │   ├── .gitignore
+    │   ├── CICD.trigger
+    │   ├── Dockerfile
+    │   ├── README.md
+    │   ├── eslint.config.js
+    │   ├── index.html
+    │   ├── infra
+    │   │   ├── main.tf
+    │   │   └── variables.tf
+    │   ├── package-lock.json
+    │   ├── package.json
+    │   ├── postcss.config.js
+    │   ├── public
+    │   │   └── vite.svg
+    │   ├── src
+    │   │   ├── App.jsx
+    │   │   ├── App.test.jsx
+    │   │   ├── assets
+    │   │   ├── index.css
+    │   │   ├── main.jsx
+    │   │   └── setupTests.js
+    │   ├── tailwind.config.js
+    │   └── vite.config.js
+    ├── images
+    │   └── banner.png
+    └── screenshots
+        └── 1.png
+```             # Este arquivo
 ```
 
 
-# 1. Clonando a aplicação api-saudacoes-aleatorias
+# 2. Workflow CI/CD
+
+![Banner](./screenshots/infraestrutura-workflow.png)
 
 
 ## Conclusão
