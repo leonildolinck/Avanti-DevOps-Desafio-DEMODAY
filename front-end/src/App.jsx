@@ -101,7 +101,7 @@ function App() {
         {!confirmado && (
           <>
             <button
-              className="px-8 py-3 border-2 border-yellow-500 text-yellow-500 font-mono text-lg tracking-widest rounded-lg hover:bg-yellow-500 hover:text-red-900 transition-colors duration-300"
+              className="px-8 py-3 border-2 border-[#f3a425] text-[#f3a425] font-mono text-lg tracking-widest rounded-lg hover:bg-[#f3a425] hover:text-red-900 transition-colors duration-300"
               onClick={gerarPedido}
             >
               GERAR PEDIDO
@@ -109,7 +109,7 @@ function App() {
 
             {mostrouPedido && (
               <button
-                className="mt-4 px-8 py-3 border-2 border-yellow-500 text-yellow-500 font-mono text-lg tracking-widest rounded-lg hover:bg-yellow-500 hover:text-red-900 transition-colors duration-300"
+                className="mt-4 px-8 py-3 border-2 border-[#f3a425] text-[#f3a425] font-mono text-lg tracking-widest rounded-lg hover:bg-[#f3a425] hover:text-red-900 transition-colors duration-300"
                 onClick={confirmarPedido}
               >
                 CONFIRMAR PEDIDO
@@ -160,7 +160,7 @@ function App() {
             </div>
 
             <button
-              className="px-8 mt-4 py-3 border-2 border-yellow-500 text-yellow-500 font-mono text-lg tracking-widest rounded-lg hover:bg-yellow-500 hover:text-red-900 transition-colors duration-300"
+              className="px-8 mt-4 py-3 border-2 border-[#f3a425] text-[#f3a425] font-mono text-lg tracking-widest rounded-lg hover:bg-[#f3a425] hover:text-red-900 transition-colors duration-300"
               onClick={novoPedido}
             >
               NOVO PEDIDO
