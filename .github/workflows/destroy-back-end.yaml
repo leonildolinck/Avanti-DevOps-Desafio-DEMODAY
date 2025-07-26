@@ -5,7 +5,7 @@ on:
 
 jobs:
   destroy:
-    name: Destroy Staging back-end/infra
+    name: Destroy back-end/infra
     runs-on: ubuntu-latest
     env:
       KOYEB_TOKEN: ${{ secrets.KOYEB_TOKEN }}

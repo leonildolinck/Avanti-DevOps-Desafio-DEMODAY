@@ -1,0 +1,36 @@
+name: Destroy GCP Instance (Front-end)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  destroy:
+    name: Destroy front-end/infra
+    runs-on: ubuntu-latest
+    env:
+      TFC_TOKEN: ${{ secrets.TFC_TOKEN }}
+      GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      DOCKER_IMAGE_NAME: ${{ vars.DOCKER_USER }}/nginx-frontend
+      DOCKER_IMAGE_TAG: 1.0.${{ github.run_id }}
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TFC_TOKEN }}
+
+      - name: Terraform Init
+        run: terraform -chdir=front-end/infra init
+        env:
+          TFC_TOKEN: ${{ secrets.TFC_TOKEN }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+      - name: Terraform Destroy
+        run: terraform -chdir=front-end/infra destroy -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          TF_VAR_docker_image_name: ${{ env.DOCKER_IMAGE_NAME }}
+          TF_VAR_docker_image_tag: ${{ env.DOCKER_IMAGE_TAG }}
