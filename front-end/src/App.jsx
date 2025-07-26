@@ -1,7 +1,7 @@
 import { useState } from "react";
 import imagemDefault from "./assets/prato-default.jpg";
 import "./index.css";
-
+//
 const itensIniciais = [
   { nome: "Entrada", imagem: imagemDefault, preco: null },
   { nome: "Prato Principal", imagem: imagemDefault, preco: null },
