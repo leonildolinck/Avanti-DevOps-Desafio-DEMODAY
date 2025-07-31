@@ -152,13 +152,95 @@ Este repositório contém a aplicação api-refeicoes-aleatorias, desenvolvida e
     │   └── banner.png
     └── screenshots
         └── 1.png
-```             # Este arquivo
 ```
 
 
-# 2. Workflow CI/CD
+# 2. Estrutura do workflow CI/CD
+
+Este repositório apresenta uma estrutura monorepo, para facilitar o controle de versões e centralizar todo o conteúdo, não sendo a melhor opção para um ambiente real de produção, onde a esteira teria problema ao receber diversos commits em paralelo.
 
 ![Banner](./screenshots/infraestrutura-workflow.png)
+
+> Nota-se que o fluxo começa com o ambiente local de desenvolvimento, onde todas as alterações são enviadas ao repositório git, e a partir de então gatilhos são disparados, dependendo de qual pasta foi alterada. 
+> 
+> O fluxo de front-end, começa com lint, testes unitários, build do container (nginx), push para o Docker Hub e deploy para a infraestrutura cloud (Google Cloud) usando o Terraform. 
+> 
+> Por sua vez, o fluxo de back-end também conta com lint, testes, build-and-push (Docker-Hub), e deploy para uma cloud diferente (Koyeb).
+
+
+# 3. Infraestrutura
+
+## Provisionamento
+Com o intuito de aplicar os conhecimentos aprendidos durante o curso, criaremos duas aplicações containerizadas, Front-End e Back-End, sendo o Front-End desenvolvido em React e o Back-End em Python. O Front-End será hospedado no serviço Cloud Run do Google e o Back-End será hospedado no serviço Container App do Koyeb. Criar contas nesses ambientes será necessário para implementar este projeto.
+
+# 3.1 - Front-End
+
+## Testes
+
+A aplicação Front-End rodará no framework Vite, e com testes ESLint e Vitest sendo aplicados no momento do deploy.
+
+### Testes de qualidade do código - Lint
+
+![Lint](./screenshots/front-lint.png)
+
+### Testes unitários - Vitest
+ 
+![Teste](./screenshots/front-vitest.png)
+
+## Build
+
+Com intuito de aplicar os conhecimentos aprendidos durante o curso, criaremos uma aplicação Front-End conteinerizada, rodando em uma imagem nginx e enviada para o repositório Docker Hub.
+
+![Build](./screenshots/front-build.png)
+
+## Deploy
+
+Após a imagem de container ser enviada para o respositório Docker Hub, é feito o deploy no serviço Cloud Run do Google.
+
+![Deploy](./screenshots/front-deploy.png)
+
+
+# 3.2 - Back-End
+
+## Testes
+
+A aplicação Back-End rodará no framework FastAPI, e com testes de código Ruff e unitários Pytest sendo aplicados no momento do deploy.
+
+### Testes de qualidade do código - Ruff
+
+![Lint](./screenshots/back-lint.png)
+
+### Testes unitários - Pytest
+ 
+![Teste](./screenshots/back-pytest.png)
+
+## Build
+
+Do mesmo jeito que no Front-End, criaremos uma aplicação Back-End conteinerizada, rodando em uma imagem Docker e enviada para o repositório Docker Hub.
+
+![Build](./screenshots/back-build.png)
+
+## Deploy
+
+Após a imagem de container ser enviada para o respositório Docker Hub, é feito o deploy no serviço Cloud Run do Google.
+
+![Deploy](./screenshots/back-deploy.png)
+
+## 3.3 - Infraestrutura em funcionamento
+
+### Google Cloud Run
+
+![Google Cloud Run](./screenshots/google-run.png)
+
+### Koyeb
+
+![Koyeb](./screenshots/koyeb.png)
+
+# 4. Resultado
+
+Temos o site disponível, rodando em um container docker Nginx, e uma api que nos entrega nosso banco de dados via http, também em um container.
+
+
 
 
 ## Conclusão
